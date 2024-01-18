@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
+import SignInButton from '@/components/SignInButton'
 
 
 export default function Home() {
@@ -23,7 +24,7 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button>Sign In</Button>
+        <SignInButton text='Sign in with Google' />
         </CardContent>
       </Card>
     </div>
