@@ -3,6 +3,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { type GetServerSidePropsContext } from "next";
 import { prisma } from "./db";
 import { type NextAuthOptions, getServerSession, type DefaultSession } from "next-auth";
+import { google } from 'googleapis';
+
 
 export const Prisma = PrismaAdapter(prisma)
 
@@ -28,6 +30,8 @@ declare module "next-auth/jwt" {
 
     }
 }
+
+const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -64,6 +68,7 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            authorization: { params: { scope: SCOPES[0] } },
         }),
     ],
 };

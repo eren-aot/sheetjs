@@ -4,15 +4,23 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import SignInButton from '@/components/SignInButton'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 
-export default function Home() {
+export default async function Home() {
+
+  const session = await getServerSession()
+  console.log(session)
+
+  if (session?.user) {
+    redirect('/dashboard')
+  }
 
   return (
     <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
@@ -24,7 +32,7 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-        <SignInButton text='Sign in with Google' />
+          <SignInButton text='Sign in with Google' />
         </CardContent>
       </Card>
     </div>
